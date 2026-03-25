@@ -39,7 +39,20 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check if version already on npm
+        id: registry
+        run: |
+          PKG=$(node -p "require('./package.json').version")
+          REMOTE=$(npm view "shiki-cedar-rego@${PKG}" version 2>/dev/null || echo "")
+          if [ "$REMOTE" = "$PKG" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Version $PKG is already published on npm; skipping publish." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish
+        if: steps.registry.outputs.skip != 'true'
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -68,10 +68,12 @@ The `prepublishOnly` script builds before `npm publish`.
 ### Releasing (CI)
 
 1. Add an **npm access token** as repo secret `NPM_TOKEN` ([npm tokens](https://docs.npmjs.com/creating-and-viewing-access-tokens)).
-2. Bump `version` in `package.json`, commit, and push to `main`.
-3. Create a tag that matches that version, e.g. `git tag v0.1.0 && git push origin v0.1.0`.
+2. On `main`, bump the version and create a matching Git tag in one step:
+   - `npm run release:patch` (or `release:minor` / `release:major`) — updates `package.json`, commits, and creates `vX.Y.Z`.
+   - `git push origin main && git push origin vX.Y.Z` (or `git push --follow-tags origin main`).
+3. Alternatively, bump `version` manually, commit, then `git tag vX.Y.Z && git push origin vX.Y.Z`.
 
-Pushing tag `v*` runs [publish workflow](.github/workflows/publish.yml): it checks the tag matches `package.json`, runs `npm ci` / `npm run build`, then `npm publish`.
+Pushing tag `v*` runs [publish workflow](.github/workflows/publish.yml): it verifies the tag matches `package.json`, builds, then publishes **only if** that exact version is not already on npm (so retagging or repushing an old tag does not fail the job).
 
 ## License
 
