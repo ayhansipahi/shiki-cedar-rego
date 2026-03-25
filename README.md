@@ -65,6 +65,14 @@ npm run build
 
 The `prepublishOnly` script builds before `npm publish`.
 
+### Releasing (CI)
+
+1. Add an **npm access token** as repo secret `NPM_TOKEN` ([npm tokens](https://docs.npmjs.com/creating-and-viewing-access-tokens)).
+2. Bump `version` in `package.json`, commit, and push to `main`.
+3. Create a tag that matches that version, e.g. `git tag v0.1.0 && git push origin v0.1.0`.
+
+Pushing tag `v*` runs [publish workflow](.github/workflows/publish.yml): it checks the tag matches `package.json`, runs `npm ci` / `npm run build`, then `npm publish`.
+
 ## License
 
 MIT
