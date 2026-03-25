@@ -1,5 +1,10 @@
 # shiki-cedar-rego
 
+[![npm version](https://img.shields.io/npm/v/shiki-cedar-rego.svg)](https://www.npmjs.com/package/shiki-cedar-rego)
+[![npm downloads](https://img.shields.io/npm/dm/shiki-cedar-rego.svg)](https://www.npmjs.com/package/shiki-cedar-rego)
+[![npm license](https://img.shields.io/npm/l/shiki-cedar-rego.svg)](https://www.npmjs.com/package/shiki-cedar-rego)
+[![peer: shiki](https://img.shields.io/npm/dependency-version/shiki-cedar-rego/peer/shiki?label=peer%3A%20shiki)](https://www.npmjs.com/package/shiki)
+
 TextMate grammar definitions for **Cedar** (AWS Verified Permissions) and **Rego** (Open Policy Agent) to use with [Shiki](https://shiki.style/).
 
 ## Install
